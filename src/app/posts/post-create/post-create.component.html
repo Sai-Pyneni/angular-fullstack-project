@@ -1,13 +1,48 @@
 <mat-card>
-       <mat-form-field>
-               <input matInput type="text" [(ngModel)]="enteredTitle">
-       </mat-form-field>
+        <form action="" (submit)="onAddPost(postForm)" #postForm="ngForm">
+                        <mat-form-field>
+                                        <input 
+                                        matInput 
+                                        type="text" 
+                                        name="title"
+                                        
+                                        ngModel
+                                        required
 
-        <mat-form-field>
-                <textarea matInput rows="8" [(ngModel)]="enteredContent"> </textarea>
-            </mat-form-field>
+                                        #title = "ngModel"
+                                        >
 
-            <button mat-raised-button color="primary" (click)="onAddPost()">Save Post</button>
+                                        <mat-error *ngIf="title.invalid">
+                                                Please enter a Title.
+                                        </mat-error>   
+
+                        
+                                </mat-form-field>
+                         
+                                 <mat-form-field>
+                                         <textarea 
+                                         matInput 
+                                         rows="4"
+                                         name="content"
+                                          ngModel
+                                          required
+                                          #content = "ngModel"
+                                         >
+                                        </textarea>
+                                        <mat-error *ngIf="content.invalid">
+                                                        Content can not be empty
+                                                </mat-error>
+                                     </mat-form-field>
+                         
+                                     <button 
+                                     mat-raised-button 
+                                     color="primary" 
+
+                                     type="submit"
+                                     >Save Post
+                                </button>
+        </form>
+       
 </mat-card>
 
 
