@@ -2,6 +2,22 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
+const mongoose = require("mongoose");
+const Post = require("./models/posts")
+
+mongoose.connect('mongodb+srv://sp713s:RlVRTZ2OWpih1SlU@cluster0-b9ks5.mongodb.net/test?retryWrites=true&w=majority',{
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
+  }).then(()=>
+
+{
+  console.log("successlly connected!");
+})
+.catch(()=>
+{
+  console.log("Could not connect");
+  
+});
 
 app.use(bodyParser.json());
 
@@ -19,7 +35,10 @@ app.use((req, res, next) => {
 });
 
 app.post ("/api/posts", (req,res,next)=>{
-const posts = req.body;
+const posts = new Post({
+  title: req.body.title,
+  content: req.body.content
+});
 console.log(posts);
 res.status(201).json({
 message: "Post added successfully"
