@@ -9,7 +9,6 @@ mongoose.connect('mongodb+srv://sp713s:RlVRTZ2OWpih1SlU@cluster0-b9ks5.mongodb.n
   useUnifiedTopology: true,
   useNewUrlParser: true,
   }).then(()=>
-
 {
   console.log("successlly connected!");
 })
@@ -39,6 +38,7 @@ const posts = new Post({
   title: req.body.title,
   content: req.body.content
 });
+posts.save();
 console.log(posts);
 res.status(201).json({
 message: "Post added successfully"
@@ -47,21 +47,20 @@ message: "Post added successfully"
 });
 
 app.get ( "/api/posts" ,(req, res, next) => {
-  const posts = [
-    {
-      id: "fadf12421l",
-      title: "First server-side post",
-      content: "This is coming from the server"
-    },
-    {
-      id: "ksajflaj132",
-      title: "Second server-side post",
-      content: "This is coming from the server!"
-    }
-  ];
-  res.status(200).json({
-    message: "Posts fetched succesfully!",
-    posts: posts
+  Post.find().then(documents => {
+    console.log(documents);
+    res.status(200).json({
+      message: "Posts fetched succesfully!",
+      posts: documents
+    });
   });
+  
+  
+});
+
+app.delete("/api/posts/:id", (req,res,next)=>
+{
+  console.log(req.params.id);
+  req.status(200).json({ message: "Post deleted!"});
 });
   module.exports = app;

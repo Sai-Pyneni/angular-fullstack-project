@@ -29,6 +29,11 @@ private postsSub: Subscription;
     );
   }
 
+  onDelete(postID: string){
+
+    this.postsService.deletePost(postID);
+
+  }
   ngOnDestroy(){
     this.postsSub.unsubscribe();
   }
