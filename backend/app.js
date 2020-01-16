@@ -38,10 +38,13 @@ const posts = new Post({
   title: req.body.title,
   content: req.body.content
 });
-posts.save();
+posts.save().then(result => {
+  res.status(201).json({
+    message: "Post added successfully",
+    postId: result._id  
+});
 console.log(posts);
-res.status(201).json({
-message: "Post added successfully"
+
 });
 
 });
