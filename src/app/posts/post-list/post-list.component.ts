@@ -14,6 +14,7 @@ export class PostListComponent implements OnInit, OnDestroy {
     {title: 'Second Post', content: 'this is a second post comment'},
   ]; */
  posts: Post[]=[];
+ isLoading = false;
 private postsSub: Subscription;
   constructor(public postsService: PostsService) { 
 
@@ -21,9 +22,12 @@ private postsSub: Subscription;
   }
 
   ngOnInit() {
+    this.isLoading = true;
     this.postsService.getPosts();
+
     this.postsSub= this.postsService.getPostsUpdatedListen().subscribe((posts: Post[])=> 
     {
+      this.isLoading = false;
       this.posts = posts;
     }
     );

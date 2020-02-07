@@ -6,6 +6,7 @@ import { stringify } from '@angular/compiler/src/util';
 
 import {map} from 'rxjs/operators';
 import { post } from 'selenium-webdriver/http';
+import { Router } from '@angular/router';
 
 @Injectable({providedIn: 'root'})
 
@@ -13,7 +14,9 @@ export class PostsService{
     private posts: Post[] = [];
     private postsUpdated= new Subject<Post[]>();
 
-constructor(private http: HttpClient){}
+constructor(private http: HttpClient, private router: Router){}
+
+
 
     getPosts(){
         
@@ -54,6 +57,7 @@ constructor(private http: HttpClient){}
             post.id = id;
             this.posts.push(post);
             this.postsUpdated.next([...this.posts]);
+           
         });
         
     }
@@ -80,6 +84,7 @@ constructor(private http: HttpClient){}
                 updatedPosts[oldPostIndex] = post;
                 this.posts = updatedPosts;
                 this.postsUpdated.next([...this.posts]);
+                this.router.navigate(["/"]);
             });
     
     }
