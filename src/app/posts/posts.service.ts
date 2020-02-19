@@ -57,6 +57,7 @@ constructor(private http: HttpClient, private router: Router){}
             post.id = id;
             this.posts.push(post);
             this.postsUpdated.next([...this.posts]);
+            this.router.navigate(["/"]);
            
         });
         
