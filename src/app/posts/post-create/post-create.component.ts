@@ -5,6 +5,7 @@ import { PostsService } from '../posts.service';
 import { Content } from '@angular/compiler/src/render3/r3_ast';
 import { ActivatedRoute } from '@angular/router';
 
+import {mimeType} from '../post-create/mime-type.validator';
 @Component({
   selector: 'app-post-create',
   templateUrl: './post-create.component.html',
@@ -32,7 +33,10 @@ enteredTitle = '';
       'content':  new FormControl(null, {validators: 
         [Validators.required]
       }),
-      'image': new FormControl(null, {validators:[Validators.required]})
+      'image': new FormControl(null, {
+        validators:[Validators.required], 
+        asyncValidators:[mimeType]
+      })
 
     });
 
